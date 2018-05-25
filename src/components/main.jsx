@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+//import PropTypes from 'prop-types'
 import axios from 'axios'
+import PubSub from 'pubsub-js'
 
 
 class Main extends Component {
@@ -12,42 +13,44 @@ class Main extends Component {
         errorMessage: null,
     }
 
-    static propTypes = {
-        searchName: PropTypes.string.isRequired,
-    }
 
-    //This method will be called when new props are received by the component
-    componentWillReceiveProps(newProps) {
-        const {searchName} = newProps;
-        this.setState({
-            initView: false,
-            loading: true,
+
+
+
+    componentDidMount() {
+        //Subscribe to 'search' published by search component
+        PubSub.subscribe('search', (msg, searchName) => {
+            this.setState({
+                initView: false,
+                loading: true,
+            });
+
+
+            //Send ajax request
+            const url = `https://api.github.com/search/users?q=${searchName}`;
+            axios.get(url).then(
+                response => {
+                    const result = response.data;
+                    console.log(result);
+                    const users = result.items.map(item => ({
+                        name: item.login,
+                        url: item.html_url,
+                        avatarUrl: item.avatar_url
+                    }));
+                    this.setState({loading: false, users});
+                }
+            ).catch(
+                error => {
+                    this.setState({
+                        loading: false,
+                        errorMessage: error.message,
+                    });
+                }
+            );
         });
-
-
-        //Send ajax request
-        const url = `https://api.github.com/search/users?q=${searchName}`;
-        axios.get(url).then(
-            response => {
-                const result = response.data;
-                console.log(result);
-                const users = result.items.map(item => ({
-                    name: item.login,
-                    url: item.html_url,
-                    avatarUrl: item.avatar_url
-                }));
-                this.setState({loading: false, users});
-            }
-        ).catch(
-            error => {
-                this.setState({
-                    loading: false,
-                    errorMessage: error.message,
-                });
-            }
-        )
-
     }
+
+
 
 
     render() {

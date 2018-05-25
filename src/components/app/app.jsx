@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PubSub from 'pubsub-js'
 
 import CommentAdd from '../comment-add/comment-add'
 import CommentList from '../comment-list/comment-list'
@@ -40,7 +41,12 @@ class App extends Component {
         this.setState({comments});
     }
 
-
+    componentDidMount() {
+        //Subscribe to the news published by comment-item component
+        PubSub.subscribe('delete', (msg, index) => {
+            this.deleteComment(index);
+        });
+    }
 
     render() {
         const {comments} = this.state;
@@ -59,7 +65,7 @@ class App extends Component {
                     </header>
                     <div className="container">
                         <CommentAdd addComment={this.addComment}/>
-                        <CommentList comments={comments} deleteComment={this.deleteComment}/>
+                        <CommentList comments={comments} />
                     </div>
                 </div>
             </div>

@@ -12,7 +12,6 @@ class CommentList extends Component {
 
     static propTypes = {
         comments: PropTypes.array.isRequired,
-        deleteComment: PropTypes.func.isRequired,
     }
 
 
@@ -28,7 +27,7 @@ class CommentList extends Component {
                 <h2 style={{display}}>暂无评论，点击左侧添加评论！！！</h2>
                 <ul className="list-group">
                     {
-                        comments.map((item, index) => <CommentItem comment={item} key={index} deleteComment={deleteComment} index={index}/>)
+                        comments.map((item, index) => <CommentItem comment={item} key={index}  index={index}/>)
                     }
                 </ul>
             </div>

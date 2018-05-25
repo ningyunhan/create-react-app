@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import PubSub from 'pubsub-js'
 
 import './commentItem.css'
 
@@ -7,7 +8,6 @@ class CommentItem extends Component {
 
     static propTypes = {
         comment: PropTypes.object.isRequired,
-        deleteComment: PropTypes.func.isRequired,
         index: PropTypes.number.isRequired,
     }
 
@@ -15,10 +15,10 @@ class CommentItem extends Component {
 
     handleClick = () => {
 
-        const {comment, deleteComment, index} = this.props;
+        const {comment, index} = this.props;
 
         if(window.confirm(`Are you sure to delete ${comment.username}'s comment?`)) {
-            deleteComment(index);
+            PubSub.publish('delete', index);
         }
     }
 

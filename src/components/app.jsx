@@ -1,24 +1,14 @@
 import React, {Component} from 'react'
+import logo from '../logo.svg'
 
-import Search from './search'
-import Main from './main'
 
 class App extends Component {
 
-    state = {
-        searchName: '',
-    }
-
-    setSearchName = (searchName) => {
-        this.setState({searchName});
-    }
-
     render() {
         return (
-            <div className="container">
-                <Search  setSearchName={this.setSearchName}/>
-                <Main searchName={this.state.searchName}/>
-
+            <div>
+                <img src={logo} alt="logo" className='logo'/>
+                <p className='title'>This is a React component</p>
             </div>
         );
     }

@@ -1,4 +1,9 @@
 import React, {Component} from 'react'
+import {Route} from 'react-router-dom'
+
+
+import MessageDetail from './message-detail'
+import MyNavLink from '../components/MyNavLink'
 
 class Message extends Component {
 
@@ -22,15 +27,19 @@ class Message extends Component {
 
     render() {
         return (
-            <ul>
-                {
-                    this.state.messages.map((item, index) => (
-                        <li>
-                            <a href="???">{item.title}</a>
-                        </li>
-                    ))
-                }
-            </ul>
+            <div>
+                <ul>
+                    {
+                        this.state.messages.map((item, index) => (
+                            <li key={index}>
+                                <MyNavLink to={`/home/message/${item.id}`}>{item.title}</MyNavLink>
+                            </li>
+                        ))
+                    }
+                </ul>
+                <Route path='/home/message/:id' component={MessageDetail} />
+            </div>
+
         );
     }
 }

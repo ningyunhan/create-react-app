@@ -1,27 +1,28 @@
 import React, {Component} from 'react';
 
+
+import {INCREMENT, DECREMENT} from '../redux/action-types'
+
 class App extends Component {
 
-    state = {
-        count: 0,
-    }
 
 
 
     increment = () => {
         const num = this.select.value * 1;
 
-        const count = this.state.count + num;
+        //const count = this.state.count + num;
 
-        this.setState({count})
+        //this.setState({count})
+        this.props.store.dispatch({type: INCREMENT, data: num});
     };
 
     decrement = () => {
         const num = this.select.value * 1;
 
-        const count = this.state.count - num;
 
-        this.setState({count})
+
+        this.props.store.dispatch({type: DECREMENT, data: num});
     };
 
 
@@ -29,10 +30,10 @@ class App extends Component {
     incrementIfOdd = () => {
         const num = this.select.value * 1;
 
-        let count = this.state.count;
+        let count = this.props.store.getState();
         if(count % 2 === 1) {
-            count += num;
-            this.setState({count})
+            //count += num;
+            this.props.store.dispatch({type: INCREMENT, data: num});
         }
     };
 
@@ -40,16 +41,16 @@ class App extends Component {
     incrementIfAsync = () => {
         const num = this.select.value * 1;
 
-        let count = this.state.count;
+        //let count = this.state.count;
 
         setTimeout(() => {
-            this.setState({count: count + num});
+            this.props.store.dispatch({type: INCREMENT, data: num});
         }, 1000);
     };
 
     render() {
 
-        const {count} = this.state;
+        const count = this.props.store.getState();
 
         return (
             <div>

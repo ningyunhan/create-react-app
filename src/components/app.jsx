@@ -1,24 +1,18 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import {Button, Toast} from 'antd-mobile';
 
-import Search from './search'
-import Main from './main'
+
 
 class App extends Component {
 
-    state = {
-        searchName: '',
-    }
-
-    setSearchName = (searchName) => {
-        this.setState({searchName});
+    handleClick = () => {
+        Toast.loading("Please wait", 1);
     }
 
     render() {
         return (
-            <div className="container">
-                <Search  setSearchName={this.setSearchName}/>
-                <Main searchName={this.state.searchName}/>
-
+            <div>
+                <Button type='primary' onClick={this.handleClick}>Submit</Button>
             </div>
         );
     }

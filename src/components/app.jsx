@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
 
-
-import {INCREMENT, DECREMENT} from '../redux/action-types'
+import * as actions from '../redux/actions'
 
 class App extends Component {
-
-
-
 
     increment = () => {
         const num = this.select.value * 1;
@@ -14,7 +10,7 @@ class App extends Component {
         //const count = this.state.count + num;
 
         //this.setState({count})
-        this.props.store.dispatch({type: INCREMENT, data: num});
+        this.props.store.dispatch(actions.increment(num));
     };
 
     decrement = () => {
@@ -22,7 +18,7 @@ class App extends Component {
 
 
 
-        this.props.store.dispatch({type: DECREMENT, data: num});
+        this.props.store.dispatch(actions.decrement(num));
     };
 
 
@@ -33,7 +29,7 @@ class App extends Component {
         let count = this.props.store.getState();
         if(count % 2 === 1) {
             //count += num;
-            this.props.store.dispatch({type: INCREMENT, data: num});
+            this.props.store.dispatch(actions.increment(num));
         }
     };
 
@@ -44,7 +40,7 @@ class App extends Component {
         //let count = this.state.count;
 
         setTimeout(() => {
-            this.props.store.dispatch({type: INCREMENT, data: num});
+            this.props.store.dispatch(actions.increment(num));
         }, 1000);
     };
 

@@ -8,6 +8,7 @@ class Counter extends Component {
         count: PropTypes.number.isRequired,
         increment: PropTypes.func.isRequired,
         decrement: PropTypes.func.isRequired,
+        incrementAsync: PropTypes.func.isRequired,
     }
 
     increment = () => {
@@ -40,12 +41,13 @@ class Counter extends Component {
 
     incrementIfAsync = () => {
         const num = this.select.value * 1;
+        this.props.incrementAsync(num);
 
         //let count = this.state.count;
 
-        setTimeout(() => {
-            this.props.increment(num);
-        }, 1000);
+        // setTimeout(() => {
+        //     this.props.increment(num);
+        // }, 1000);
     };
 
     render() {

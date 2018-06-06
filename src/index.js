@@ -1,18 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux'
 
 
-import App from './components/app'
+import App from './containers/app'
 import store from './redux/store'
 
 //create a store object
 
 
 
-function render() {
-    ReactDOM.render(<App store={store}/>, document.getElementById("root"));
-}
 
-render();
+ReactDOM.render((
+    <Provider store={store}>
+        <App />
+    </Provider>
+), document.getElementById("root"));
 
-store.subscribe(render);
+
+

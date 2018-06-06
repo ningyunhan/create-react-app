@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
 
-import * as actions from '../redux/actions'
 
-class App extends Component {
+class Counter extends Component {
+
+    static propTypes = {
+        count: PropTypes.number.isRequired,
+        increment: PropTypes.func.isRequired,
+        decrement: PropTypes.func.isRequired,
+    }
 
     increment = () => {
         const num = this.select.value * 1;
@@ -10,15 +16,13 @@ class App extends Component {
         //const count = this.state.count + num;
 
         //this.setState({count})
-        this.props.store.dispatch(actions.increment(num));
+        this.props.increment(num);
     };
 
     decrement = () => {
         const num = this.select.value * 1;
 
-
-
-        this.props.store.dispatch(actions.decrement(num));
+        this.props.decrement(num);
     };
 
 
@@ -26,10 +30,10 @@ class App extends Component {
     incrementIfOdd = () => {
         const num = this.select.value * 1;
 
-        let count = this.props.store.getState();
+        let count = this.props.count
         if(count % 2 === 1) {
             //count += num;
-            this.props.store.dispatch(actions.increment(num));
+            this.props.increment(num);
         }
     };
 
@@ -40,13 +44,13 @@ class App extends Component {
         //let count = this.state.count;
 
         setTimeout(() => {
-            this.props.store.dispatch(actions.increment(num));
+            this.props.increment(num);
         }, 1000);
     };
 
     render() {
 
-        const count = this.props.store.getState();
+        const {count} = this.props;
 
         return (
             <div>
@@ -67,4 +71,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default Counter;

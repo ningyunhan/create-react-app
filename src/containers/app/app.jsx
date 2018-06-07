@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import CommentAdd from '../../components/comment-add/comment-add';
 import CommentList from '../../components/comment-list/comment-list';
-import {addComment, deleteComment} from '../../redux/actions'
+import {addComment, deleteComment, getComments} from '../../redux/actions'
 
 class App extends Component {
 
@@ -12,6 +12,7 @@ class App extends Component {
         comments: PropTypes.array.isRequired,
         addComment: PropTypes.func.isRequired,
         deleteComment: PropTypes.func.isRequired,
+        getComments: PropTypes.func.isRequired
     }
 
 
@@ -38,7 +39,7 @@ class App extends Component {
 
 
     componentDidMount() {
-
+        this.props.getComments();
     }
 
 /*    addComment = (comment) => {
@@ -86,5 +87,5 @@ class App extends Component {
 
 export default connect(
     state => ({comments: state}),
-    {addComment, deleteComment}
+    {addComment, deleteComment, getComments}
 )(App);

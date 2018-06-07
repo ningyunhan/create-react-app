@@ -1,9 +1,9 @@
-import {ADD_COMMENT, DELETE_COMMENT} from './action-types'
+import {ADD_COMMENT, DELETE_COMMENT, RECEIVE_COMMENTS} from './action-types'
 
 
 const initComments = [
-    {username: 'Tom', content: "React is so interesting"},
-    {username: 'Jack', content: "React is damn hard"}
+/*    {username: 'Tom', content: "React is so interesting"},
+    {username: 'Jack', content: "React is damn hard"}*/
 ];
 
 export function comments(state = initComments, action) {
@@ -12,6 +12,8 @@ export function comments(state = initComments, action) {
             return [action.data, ...state];
         case  DELETE_COMMENT:
             return state.filter((item, index) => index !== action.data);
+        case  RECEIVE_COMMENTS:
+            return action.data;
         default:
             return state;
     }
